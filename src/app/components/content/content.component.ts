@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataExchangeService } from '../../services/data-exchange.service';
 
 @Component({
   selector: 'app-content',
@@ -41,10 +42,16 @@ export class ContentComponent implements OnInit {
       audioUrl: '../../audio/MiatriSs - Yandere Song.mp3'
     }
   ];
+  public activeCard: number;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  private playMusicCard(song): void {
+    this.activeCard = song.id;
+    this.dataExchangeService.emitActiveSong(song);
   }
 
+  constructor(private dataExchangeService: DataExchangeService) { }
+
+  ngOnInit(): void {
+
+  }
 }

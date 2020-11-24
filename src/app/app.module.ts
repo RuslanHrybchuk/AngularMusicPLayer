@@ -9,6 +9,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ContentComponent } from './components/content/content.component';
 import { MusicCardComponent } from './components/music-card/music-card.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DataExchangeService } from './services/data-exchange.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     MatIconModule
   ],
-  providers: [],
+  providers: [
+    DataExchangeService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,11 @@
 <div class='content-wrapper'>
   <app-music-card *ngFor="let card of musicList, index as i"
                   [cardData] = "card"
-  ></app-music-card>
+                  [isActive] = "activeCard"
+                  (click)="playMusicCard(card)">
+<!--                  [ngClass]="{-->
+<!--                      'ul-eco-buttons-li': !filter.isActive,-->
+<!--                      'card-selected': filter.isActive-->
+<!--                    }"-->
+  </app-music-card>
 </div>
