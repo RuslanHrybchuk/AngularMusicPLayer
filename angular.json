@@ -120,5 +120,8 @@
       }
     }
   },
-  "defaultProject": "AngularMusicPLayer"
+  "defaultProject": "AngularMusicPLayer",
+  "cli": {
+    "analytics": false
+  }
 }
