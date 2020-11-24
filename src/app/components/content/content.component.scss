@@ -1,0 +1,12 @@
+.content-wrapper {
+  width: 100%;
+  height: calc(100vh - 105px);
+  background: rgba(60, 60, 60, 0.95);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding: 5px 15px 10px 15px;
+}

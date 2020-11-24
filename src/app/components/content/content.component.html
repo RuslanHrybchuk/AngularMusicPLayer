@@ -1,0 +1,5 @@
+<div class='content-wrapper'>
+  <app-music-card *ngFor="let card of musicList, index as i"
+                  [cardData] = "card"
+  ></app-music-card>
+</div>

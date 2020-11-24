@@ -1,0 +1,84 @@
+.footer-wrapper {
+  width: 100vw;
+  height: 55px;
+  background: rgba(33, 33, 33, 0.98);
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  overflow: hidden;
+  padding: 0 170px 0 170px;
+
+
+  .play-buttons {
+    position: relative;
+    width: 108px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    margin-right: 30px;
+
+    .previousTrack {
+      position: relative;
+      height: 26px;
+      width: 30px;
+      background: #980000;
+      padding-top: 1px;
+      border-radius: 4px 0 0 4px ;
+    }
+
+    .play {
+      position: relative;
+      height: 40px;
+      width: 44px;
+      background: #B00000;
+      padding-top: 6px;
+      border-radius: 7px;
+      padding-left: 1px;
+      border: 1px solid rgba(33, 33, 33, 0.98);
+    }
+
+    .nextTrack {
+      position: relative;
+      height: 26px;
+      width: 30px;
+      background: #980000;
+      padding-top: 1px;
+      border-radius: 0 4px 4px 0;
+    }
+  }
+
+  .timeline {
+    position: relative;
+    width: 800px;
+    height: 26px;
+    background: #dae1e7;
+    border-radius: 6px;
+    margin-right: 20px;
+  }
+
+  .sound-volume {
+    position: relative;
+    width: 130px;
+    height: 20px;
+    background: midnightblue;
+    margin-right: 20px;
+  }
+
+  .control-buttons {
+    position: relative;
+    width: 150px;
+    height: 20px;
+    background: aquamarine;
+  }
+
+  .button {
+    display: inline-block;
+    text-align: center;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

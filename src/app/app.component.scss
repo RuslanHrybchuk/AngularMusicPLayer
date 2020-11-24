@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+.main-wrapper {
+  width: 100vw;
+  height: 100vh;
+  background: #e8ffff;
+  display: flex;
+  flex-flow: column;
+  overflow: hidden;
+}
+
+
