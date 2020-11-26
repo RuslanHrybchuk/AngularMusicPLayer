@@ -10,6 +10,7 @@ import { ContentComponent } from './components/content/content.component';
 import { MusicCardComponent } from './components/music-card/music-card.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DataExchangeService } from './services/data-exchange.service';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { DataExchangeService } from './services/data-exchange.service';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MatIconModule
+    MatIconModule,
+    CommonModule
   ],
   providers: [
     DataExchangeService

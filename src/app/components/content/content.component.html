@@ -2,10 +2,6 @@
   <app-music-card *ngFor="let card of musicList, index as i"
                   [cardData] = "card"
                   [isActive] = "activeCard"
-                  (click)="playMusicCard(card)">
-<!--                  [ngClass]="{-->
-<!--                      'ul-eco-buttons-li': !filter.isActive,-->
-<!--                      'card-selected': filter.isActive-->
-<!--                    }"-->
+                  (click)="playMusicCard(card.id)">
   </app-music-card>
 </div>

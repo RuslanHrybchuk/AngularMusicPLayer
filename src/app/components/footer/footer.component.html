@@ -1,13 +1,41 @@
 <div class='footer-wrapper'>
+
+  <audio #stream>
+    <source *ngIf="songData" src="{{ songData.audioUrl }}" type="audio/ogg"/>
+    Your browser does not support the audio element.
+  </audio>
+
   <div class='play-buttons'>
-    <div class='previousTrack button'><mat-icon style = "color:#CACACA">fast_rewind</mat-icon></div>
-    <div class='play button'><mat-icon style = "color:#D3D3D3; transform: scale(1.5);">play_arrow</mat-icon></div>
-    <div class='nextTrack button'><mat-icon style = "color:#CACACA">fast_forward</mat-icon></div>
+    <div class='previousTrack button' (click)="playPreviousTrack()"><mat-icon style = "color:#CACACA">fast_rewind</mat-icon></div>
+
+    <div class='play button' (click)="playOrPause()" [ngSwitch]="pause">
+      <mat-icon *ngSwitchCase="true" style = "color:#D3D3D3; transform: scale(1.4);">play_arrow</mat-icon>
+      <mat-icon *ngSwitchCase="false" style = "color:#D3D3D3; transform: scale(1.3);">pause</mat-icon>
+      <mat-icon *ngSwitchDefault style = "color:#D3D3D3; transform: scale(1.4);">play_arrow</mat-icon>
+    </div>
+
+    <div class='nextTrack button' (click)="playNextTrack()"><mat-icon style = "color:#CACACA">fast_forward</mat-icon></div>
   </div>
-  <div class='timeline'>
-    <div class='playhead'></div>
-    <div class='hover-playhead'></div>
+
+  <div class='timeline' #timeline [ngClass]="{invisible: !songData}">
+    <div class='timeline-data-wrapper'>
+      <div class='current-time' *ngIf="songData">{{ currentTime }}</div>
+      <div class='song-name' *ngIf="songData">{{ songData.author }} - {{ songData.title }}</div>
+      <div class='song-duration' *ngIf="songData">{{ songData.duration }}</div>
+    </div>
+
+
+    <div class='playhead' #playhead></div>
+    <div class='hover-playhead' #hoverPlayhead data-content="0:00" ></div>
   </div>
-  <div class='sound-volume'></div>
+
+  <div class="speaker-sound-button" (click)="volumeClick()">
+    <mat-icon style = "color:#CACACA" *ngIf="volume > 33">volume_up</mat-icon>
+    <mat-icon style = "color:#CACACA" *ngIf="volume < 33 && volume > 0">volume_down</mat-icon>
+    <mat-icon style = "color:#CACACA" *ngIf="volume == 0">volume_off</mat-icon>
+  </div>
+
+  <input (input)="changeVolume($event.target.value)" class='sound-volume' max="100" min="0" type="range" value="50"/>
   <div class='control-buttons'></div>
+
 </div>
