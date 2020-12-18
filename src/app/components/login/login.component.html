@@ -1,0 +1,15 @@
+<div class="login-wrapper">
+  <h1>Login</h1>
+  <div class="close-button"><mat-icon style = "color:#CACACA" (click)="clickClose()">close</mat-icon></div>
+  <form>
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="name" id="name" required>
+
+      <input type="password" class="form-control" placeholder="password" id="pass">
+    </div>
+    <button type="submit" class="submit-btn">Submit</button>
+
+    <button type="submit" class="register-btn" (click)="clickRegister()">Register</button>
+
+  </form>
+</div>

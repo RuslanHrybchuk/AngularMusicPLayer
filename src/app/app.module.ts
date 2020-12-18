@@ -11,6 +11,9 @@ import { MusicCardComponent } from './components/music-card/music-card.component
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DataExchangeService } from './services/data-exchange.service';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -18,13 +21,16 @@ import { CommonModule } from '@angular/common';
     HeaderComponent,
     FooterComponent,
     ContentComponent,
-    MusicCardComponent
+    MusicCardComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MatIconModule,
-    CommonModule
+    CommonModule,
+    HttpClientModule
   ],
   providers: [
     DataExchangeService

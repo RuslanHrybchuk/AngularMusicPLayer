@@ -1,4 +1,5 @@
 .content-wrapper {
+  margin-top: 50px;
   width: 100%;
   height: calc(100vh - 105px);
   background: rgba(60, 60, 60, 0.95);
@@ -9,4 +10,16 @@
   overflow-y: scroll;
   overflow-x: hidden;
   padding: 5px 15px 10px 15px;
+
+  app-login {
+    margin: 100px auto;
+    transform: translate(5px);
+  }
+
+  app-register {
+    margin: 100px auto;
+    transform: translate(5px);
+  }
 }
+
+
