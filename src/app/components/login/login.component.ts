@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {DataExchangeService} from '../../services/data-exchange.service';
+import {ServerService} from '../../services/server.service';
 
 @Component({
   selector: 'app-login',
@@ -7,11 +8,18 @@ import {DataExchangeService} from '../../services/data-exchange.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  public username: string;
+  public password: string;
 
-  constructor(private dataExchangeService: DataExchangeService) {
+  constructor(private dataExchangeService: DataExchangeService,
+              private serverService: ServerService) {
   }
 
   ngOnInit(): void {
+  }
+
+  public login(): void {
+    this.serverService.userAuth(this.username, this.password);
   }
 
   public clickRegister(): void {

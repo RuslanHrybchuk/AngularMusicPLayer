@@ -9,7 +9,7 @@ export class DataExchangeService {
 
   public songSubject = new Subject();
   public trackSubject = new Subject();
-  public loginSubject = new Subject();
+  public modalSubject = new Subject();
   public closeModalSubject = new Subject();
 
   constructor() {
@@ -28,11 +28,15 @@ export class DataExchangeService {
   }
 
   public emitLoginClick(): void {
-    this.loginSubject.next('login');
+    this.modalSubject.next('login');
+  }
+
+  public emitAddSongClick(): void {
+    this.modalSubject.next('addSong');
   }
 
   public emitRegisterClick(): void {
-    this.loginSubject.next('register');
+    this.modalSubject.next('register');
   }
 
   public emitCloseModalClick(): void {

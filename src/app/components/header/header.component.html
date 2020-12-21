@@ -1,4 +1,10 @@
 <div class='header-wrapper'>
+
+  <div class="add-song" (click)="addSong()" *ngIf="userLogged()"><mat-icon (click)="addSong()">playlist_add</mat-icon></div>
+
   <div class="search-bar"></div>
-  <div class="login-button" (click)="clickLogin()">Login</div>
+
+  <div class="login-button" (click)="clickLogin()" *ngIf="!userLogged()">Login</div>
+
+  <div class="logout-button login-button" (click)="clickLogOut()" *ngIf="userLogged()">Logout</div>
 </div>

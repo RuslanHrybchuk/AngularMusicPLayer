@@ -13,8 +13,25 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public addSong(): void {
+    this.dataExchangeService.emitAddSongClick();
+  }
+
   public clickLogin(): void {
     this.dataExchangeService.emitLoginClick();
+  }
+
+  public clickLogOut(): void {
+    sessionStorage.removeItem('currentUser');
+    window.location.reload();
+  }
+
+  public userLogged(): boolean {
+    if (sessionStorage.getItem('currentUser')) {    // check localstorage
+      return true;
+    } else {
+      return false;
+    }
   }
 
 }

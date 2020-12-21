@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataExchangeService } from '../../services/data-exchange.service';
+import { ServerService } from '../../services/server.service';
 
 @Component({
   selector: 'app-register',
@@ -7,8 +8,12 @@ import { DataExchangeService } from '../../services/data-exchange.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
+  public username: string;
+  public password: string;
+  public repeatPass: string;
 
-  constructor(private dataExchangeService: DataExchangeService) { }
+  constructor(private dataExchangeService: DataExchangeService,
+              private serverService: ServerService) { }
 
   ngOnInit(): void {
   }
@@ -19,6 +24,20 @@ export class RegisterComponent implements OnInit {
 
   public clickClose(): void {
     this.dataExchangeService.emitCloseModalClick();
+  }
+
+  public regValidate(): void {
+    if (this. password === this.repeatPass) {
+      this.registerUser();
+    } else {
+      alert('Passwords dont match');
+    }
+  }
+
+  private async registerUser(): Promise<any> {
+    await this.serverService.addNewUser(this.username, this.password);
+
+    this.clickClose();
   }
 
 }

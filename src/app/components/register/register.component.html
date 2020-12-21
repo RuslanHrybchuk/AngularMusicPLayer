@@ -1,18 +1,20 @@
 <div class="register-wrapper">
+
   <h1>Register</h1>
   <div class="close-button" (click)="clickClose()"><mat-icon style = "color:#CACACA">close</mat-icon></div>
-  <form>
+
+  <form #myForm="ngForm" (ngSubmit)="regValidate()" ngNativeValidate>
     <div class="form-group">
-      <input type="text" class="form-control" placeholder="name" id="name" required>
+      <input type="text" class="form-control" placeholder="name" name="name" [(ngModel)]="username" required >
 
-      <input type="password" class="form-control" placeholder="password" id="pass">
+      <input type="password" class="form-control" placeholder="password" name="pass" [(ngModel)]="password" required>
 
-      <input type="password" class="form-control" placeholder="repeat password" id="repeatPass">
+      <input type="password" class="form-control" placeholder="repeat password" name="repeatPass" [(ngModel)]="repeatPass" required>
     </div>
 
     <button type="submit" class="submit-btn">Submit</button>
-
-    <button type="submit" class="login-btn" (click)="clickLogin()">Login</button>
-
   </form>
+
+  <button type="button" class="login-btn" (click)="clickLogin()">Login</button>
+
 </div>

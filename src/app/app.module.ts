@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { MatIconModule } from '@angular/material/icon';
-
+import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { AddSongComponent } from './components/add-song/add-song.component';
 
 @NgModule({
   declarations: [
@@ -23,14 +24,16 @@ import { RegisterComponent } from './components/register/register.component';
     ContentComponent,
     MusicCardComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    AddSongComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MatIconModule,
     CommonModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     DataExchangeService

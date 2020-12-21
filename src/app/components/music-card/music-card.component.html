@@ -4,6 +4,9 @@
   <p class="song-title">{{ cardData.title }}</p>
   <p class="song-author">{{ cardData.author }} </p>
   <p class="song-duration">{{ cardData.duration }}</p>
-  <div class="song-buttons"></div>
+
+  <div class="song-buttons">
+    <div class="close-button"><mat-icon (click)="deleteSong($event)">close</mat-icon></div>
+  </div>
 </div>
 

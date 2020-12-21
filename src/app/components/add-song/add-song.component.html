@@ -1,0 +1,26 @@
+<div class="add-song-wrapper">
+
+  <h1>Add song</h1>
+  <div class="close-button" (click)="clickClose()"><mat-icon style = "color:#CACACA">close</mat-icon></div>
+
+  <form #myForm="ngForm" (ngSubmit)="addSong()" ngNativeValidate>
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Song name" name="songName" [(ngModel)]="songTitle" >
+
+      <input type="text" class="form-control" placeholder="Song author" name="pass" [(ngModel)]="songAuthor">
+
+      <div class="flex-field">
+        <label class="form-control">Upload song</label>
+        <input type="file" class="form-control" placeholder="Upload song" name="songFile" (change)="onSongUpload($event)" required>
+      </div>
+
+      <div class="flex-field">
+        <label>Upload song image</label>
+        <input type="file" class="form-control" placeholder="Background file" name="imgFile" (change)="onImgUpload($event)">
+      </div>
+    </div>
+
+    <button type="submit" class="submit-btn">Submit</button>
+  </form>
+
+</div>

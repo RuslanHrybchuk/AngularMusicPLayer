@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnChanges, OnInit} from '@angular/core';
 import {DataExchangeService} from '../../services/data-exchange.service';
 import {Subscription} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 
 @Component({
   selector: 'app-content',
@@ -9,46 +9,10 @@ import {HttpClient} from '@angular/common/http';
   styleUrls: ['./content.component.scss']
 })
 
-export class ContentComponent implements OnInit {
+export class ContentComponent implements OnInit, OnChanges {
   private dataSubscription: Subscription;
   private loginSubscription: Subscription;
   private closeModalSubscription: Subscription;
-
-  // public musicList = [
-  //   {
-  //     id: 0,
-  //     title: 'Devils Trigger',
-  //     author: 'Casey Edwards',
-  //     duration: '6:45',
-  //     background: '../../assets/images/m0.jpg',
-  //     audioUrl: '../../assets/audio/Devils Trigger.mp3'
-  //   },
-  //   {
-  //     id: 1,
-  //     title: 'Breaking the habit',
-  //     author: 'Linkin Park',
-  //     duration: '3:16',
-  //     background: '../../assets/images/m1.jpg',
-  //     audioUrl: '../../assets/audio/linkin_park_-_breaking_the_habit_(zv.fm).mp3'
-  //   },
-  //   {
-  //     id: 2,
-  //     title: 'The red baron',
-  //     author: 'Sabaton',
-  //     duration: '3:22',
-  //     background: '../../assets/images/m3.jpg',
-  //     audioUrl: '../../assets/audio/sabaton_-_the_red_baron.mp3'
-  //   },
-  //   {
-  //     id: 3,
-  //     title: 'Yandere Song',
-  //     author: 'MiatriSs',
-  //     duration: '4:34',
-  //     background: '../../assets/images/m2.jpg',
-  //     audioUrl: '../../assets/audio/MiatriSs - Yandere Song.mp3'
-  //   }
-  // ];
-
   public musicList = [];
   public activeCard: number;
   public modalWindow = 'closed';
@@ -59,22 +23,48 @@ export class ContentComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataSubscription = this.dataExchangeService.trackSubject.subscribe(this.subscribeToTrackSignal.bind(this));
-    this.loginSubscription = this.dataExchangeService.loginSubject.subscribe(this.subscribeToLoginSignal.bind(this));
+    this.loginSubscription = this.dataExchangeService.modalSubject.subscribe(this.subscribeToModalSignal.bind(this));
     this.closeModalSubscription = this.dataExchangeService.closeModalSubject.subscribe(this.subscribeToCloseSignal.bind(this));
     this.getSongsFromServer();
   }
 
-  private getSongsFromServer(): void {
-    this.http.get<any>('http://localhost:3000/songs').subscribe({
+  ngOnChanges(): void {
+    this.getSongsFromServer();
+  }
+
+  private async getSongsFromServer(): Promise<any> {
+    const userId = sessionStorage.getItem('currentUser');
+
+    if (userId) {
+      await this.getSongs(userId);
+    }
+  }
+
+  private async getSongs(userId): Promise<any> {
+    await this.http.get<any>(`http://localhost:3003/users/id/${userId}`).subscribe({
       next: data => {
-        for (const i in data) {
+        console.log(data);
+        const songs = data.userSongs;
+        for (const i in songs) {
           if (i) {
-            this.musicList.push(data[i]);
+            console.log(i);
+            this.getSong(i);
           }
         }
       },
       error: error => {
-        console.error('There was an error!', error);
+        console.error('Error:', error);
+      }
+    });
+  }
+
+  private async getSong(id): Promise<any> {
+    await this.http.get<any>(`http://localhost:3003/songs/id/${id}`).subscribe({
+      next: song => {
+        this.musicList.push(song[0]);
+      },
+      error: error => {
+        console.error('Error:', error);
       }
     });
   }
@@ -96,12 +86,13 @@ export class ContentComponent implements OnInit {
     }
   }
 
-  private subscribeToLoginSignal(signal): void {
+  private subscribeToModalSignal(signal): void {
     this.modalWindow = signal;
   }
 
   private subscribeToCloseSignal(): void {
     this.modalWindow = 'closed';
+    window.location.reload();
   }
 
   private subscribeToTrackSignal(track): void {

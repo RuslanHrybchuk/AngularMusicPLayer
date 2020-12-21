@@ -9,9 +9,20 @@ export class MusicCardComponent implements OnInit {
   @Input() cardData;
   @Input() isActive;
 
+  deleteCounter = 0;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  public deleteSong(event): void {
+    event.stopPropagation();
+    this.deleteCounter++;
+
+    if (this.deleteCounter <= 3) {
+      // delete song
+    }
   }
 
 }
