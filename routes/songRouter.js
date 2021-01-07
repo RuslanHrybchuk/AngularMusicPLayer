@@ -2,20 +2,40 @@ const express = require('express');
 const songRouter = express.Router();
 const songSchema = require('../models/song');
 const multer = require('multer');
-const upload = multer({ dest: '../src/assets/audio' })
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb)  => {
+      cb(null, 'src/assets/audio');
+  },
+  filename: (req, file, cb) => {
+    const { originalname } = file;
+    cb(null, originalname);
+  }
+})
+
+const upload = multer({ storage });
 
 
 // Upload song
-songRouter.post('/upload', upload.single('songFile'), (req, res) => {
-
+songRouter.post('/upload/song', upload.single('song'), (req, res) => {
+  return res.json(req.file)
 })
 
 
 // Create one song
-songRouter.post('/', async (req, res) => {
+songRouter.post('/new', async (req, res) => {
+
+  const newSong = new songSchema({
+    title: req.body.title,
+    author: req.body.author,
+    duration: req.body.duration,
+    background: req.body.background,
+    audioUrl: req.body.audioUrl,
+  })
+
   try {
-    const newSong = await songSchema.save()
-    res.status(201).json(newSong)
+    const result = await newSong.save()
+    res.status(201).json(result)
   } catch (err) {
     res.status(400).json({message: err.message})
   }
@@ -35,7 +55,7 @@ songRouter.get('/', async (req, res) => {
 // Get one song
 songRouter.get('/id/:id', async (req, res) => {
   try {
-    const song = await songSchema.find({id: req.params.id })
+    const song = await songSchema.findOne({_id: req.params.id })
     res.json(song)
   } catch (err) {
     res.status(500).json({message: err.message})

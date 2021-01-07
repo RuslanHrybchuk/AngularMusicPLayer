@@ -2,8 +2,8 @@
   <ng-container *ngIf="modalWindow === 'closed'">
     <app-music-card *ngFor="let card of musicList, index as i"
                     [cardData]="card"
-                    [isActive]="activeCard"
-                    (click)="playMusicCard(card.id)">
+                    [currentId]="activeCardId"
+                    (click)="playMusicCard(card._id)">
     </app-music-card>
   </ng-container>
 

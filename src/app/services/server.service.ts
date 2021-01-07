@@ -22,7 +22,7 @@ export class ServerService {
     this.userAuth(username, password);
   }
 
-  public userAuth(username, password): void {
+  public async userAuth(username, password): Promise<any> {
     this.http.post(`${this.serverUrl}users/login`, {
       username,
       password

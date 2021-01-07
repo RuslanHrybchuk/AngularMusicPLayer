@@ -77,10 +77,10 @@
 }
 
 .selected {
-  box-shadow: 0 0 10px 2px #800000;
+  box-shadow: 0 0 10px 2px #500000;
 
   &:hover {
-    box-shadow: 0 0 10px 2px #800000;
+    box-shadow: 0 0 10px 2px #500000;
     cursor: pointer;
   }
 }

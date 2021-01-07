@@ -1,5 +1,5 @@
 <div class="musicCard-wrapper" [style.backgroundImage]="'url('+cardData.background+')'"
-     [ngClass]="{'selected': cardData.id === isActive}">
+     [ngClass]="{'selected': cardData._id === currentId}">
 
   <p class="song-title">{{ cardData.title }}</p>
   <p class="song-author">{{ cardData.author }} </p>

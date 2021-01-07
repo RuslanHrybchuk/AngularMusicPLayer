@@ -14,7 +14,8 @@ export class ContentComponent implements OnInit, OnChanges {
   private loginSubscription: Subscription;
   private closeModalSubscription: Subscription;
   public musicList = [];
-  public activeCard: number;
+  public activeCard: number = null;
+  public activeCardId;
   public modalWindow = 'closed';
 
   constructor(private dataExchangeService: DataExchangeService,
@@ -43,12 +44,11 @@ export class ContentComponent implements OnInit, OnChanges {
   private async getSongs(userId): Promise<any> {
     await this.http.get<any>(`http://localhost:3003/users/id/${userId}`).subscribe({
       next: data => {
-        console.log(data);
         const songs = data.userSongs;
+        console.log(data);
         for (const i in songs) {
           if (i) {
-            console.log(i);
-            this.getSong(i);
+            this.getSong(songs[i]);
           }
         }
       },
@@ -61,7 +61,7 @@ export class ContentComponent implements OnInit, OnChanges {
   private async getSong(id): Promise<any> {
     await this.http.get<any>(`http://localhost:3003/songs/id/${id}`).subscribe({
       next: song => {
-        this.musicList.push(song[0]);
+        this.musicList.push(song);
       },
       error: error => {
         console.error('Error:', error);
@@ -70,19 +70,24 @@ export class ContentComponent implements OnInit, OnChanges {
   }
 
   private playMusicCard(songId): void {
-    this.activeCard = songId;
-    this.dataExchangeService.emitActiveSong(this.musicList[songId]);
+    const currentCard = this.musicList.indexOf(this.musicList.find(x => x._id === songId));
+    this.activeCard = currentCard;
+    this.activeCardId = songId;
+
+    this.dataExchangeService.emitActiveSong(this.musicList[currentCard]);
   }
 
   private activatePrevCard(): void {
-    if ((this.activeCard - 1) >= 0) {
+    if (this.activeCard > 0) {
       this.activeCard--;
+      this.activeCardId = this.musicList[this.activeCard]._id;
     }
   }
 
   private activateNextCard(): void {
-    if ((this.activeCard + 1) <= (this.musicList.length - 1)) {
+    if (this.activeCard < (this.musicList.length - 1)) {
       this.activeCard++;
+      this.activeCardId = this.musicList[this.activeCard]._id;
     }
   }
 
@@ -101,6 +106,6 @@ export class ContentComponent implements OnInit, OnChanges {
     } else if (track === 'next') {
       this.activateNextCard();
     }
-    this.playMusicCard(this.activeCard);
+    this.playMusicCard(this.activeCardId);
   }
 }

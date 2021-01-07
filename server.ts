@@ -8,6 +8,7 @@ const cors = require('cors');
 
 const mySongRouter = require('./routes/songRouter');
 const myUserRouter = require('./routes/userRouter');
+const myImageRouter = require('./routes/imageRouter');
 
 const PORT = process.env.PORT;
 
@@ -19,6 +20,7 @@ app.use(bodyParser.json());
 
 app.use('/songs', mySongRouter);
 app.use('/users', myUserRouter);
+app.use('/upload/image', myImageRouter);
 
 
 mongoose.connect(process.env.DATABASE_URL,

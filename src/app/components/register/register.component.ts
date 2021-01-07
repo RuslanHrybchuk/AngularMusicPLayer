@@ -36,8 +36,11 @@ export class RegisterComponent implements OnInit {
 
   private async registerUser(): Promise<any> {
     await this.serverService.addNewUser(this.username, this.password);
+    await this.userAuth();
+  }
 
-    this.clickClose();
+  private async userAuth(): Promise<any> {
+    await this.serverService.userAuth(this.username, this.password);
   }
 
 }

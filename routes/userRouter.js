@@ -18,7 +18,7 @@ userRouter.get('/', async (req, res) => {
 // get users id
 userRouter.get('/id/:id', async (req, res) => {
   try {
-    const user = await User.findOne({_id: req.params.id })
+    const user = await User.findOne({_id: req.params.id})
     res.json(user)
   } catch (err) {
     res.status(500).json({message: err.message})
@@ -43,6 +43,34 @@ userRouter.post('/login', async (req, res) => {
     } else return res.status(400).send('Password is incorrect');
 
   } else return res.status(400).send('Username incorrect');
+})
+
+
+// add a song to users song list
+userRouter.patch('/update/:id', async (req, res) => {
+  try {
+    await User.findByIdAndUpdate(req.params.id, {
+      $push: {
+        userSongs: req.body.songId
+      }
+    }, {useFindAndModify: false})
+  } catch (error) {
+    res.status(400).json({message: error.message})
+  }
+})
+
+
+// delete a song from users song list
+userRouter.patch('/delete/:id', async (req, res) => {
+  try {
+    await User.findByIdAndUpdate(req.params.id, {
+      $pull: {
+        userSongs: req.body.songId
+      }
+    }, {useFindAndModify: false})
+  } catch (error) {
+    res.status(400).json({message: error.message})
+  }
 })
 
 

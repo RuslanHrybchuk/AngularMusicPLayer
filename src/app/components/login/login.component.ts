@@ -18,8 +18,8 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public login(): void {
-    this.serverService.userAuth(this.username, this.password);
+  public async login(): Promise<any> {
+    await this.serverService.userAuth(this.username, this.password);
   }
 
   public clickRegister(): void {
